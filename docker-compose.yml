@@ -1,0 +1,52 @@
+services:
+  app:
+    build: .
+    depends_on:
+      - database
+    volumes:
+      - .:/app
+      - storage_data:/var/www/app_storage
+      - gems_volume:/gems:cached
+    environment:
+      - DATABASE_HOST=database
+      - RAILS_ENV=development
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Password
+      - POSTGRES_DB=dry_beans_development
+      - DB_ADAPTER=postgresql
+      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=Password
+      - PGADMIN_LISTEN_PORT=80
+    ports:
+      - 3500:3000
+    tty: true
+
+  database:
+    image: postgres:16.1
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Password
+      - POSTGRES_DB=dry_beans_development
+      - DB_ADAPTER=postgresql
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=Password
+      - PGADMIN_LISTEN_PORT=80
+    ports:
+      - 7900:80
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+
+volumes:
+  db_data:
+  pgadmin-data:
+  storage_data:
+  gems_volume:
