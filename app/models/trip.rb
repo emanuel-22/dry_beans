@@ -4,7 +4,9 @@ class Trip < ApplicationRecord
   has_many :deliveries, dependent: :destroy
   has_many :pickups, dependent: :destroy
 
-  enum status: { active: 'active', cancelled: 'cancelled' }
+
+  enum :status, { active: 0, cancelled: 1 }
+
 
 
 end

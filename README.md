@@ -26,3 +26,5 @@ docker compose run app bash
 rails db:create db:migrate
 ```
 
+Para realizar pruebas se uso https://rspec.info/
+

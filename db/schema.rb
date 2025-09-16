@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_15_202434) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_16_014608) do
   create_table "deliveries", force: :cascade do |t|
     t.integer "trip_id", null: false
-    t.string "status"
+    t.integer "status"
     t.datetime "scheduled_at"
     t.datetime "completed_at"
     t.string "recipient_name"
@@ -30,7 +30,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_202434) do
 
   create_table "pickups", force: :cascade do |t|
     t.integer "trip_id", null: false
-    t.string "status"
+    t.integer "status"
     t.datetime "scheduled_at"
     t.datetime "completed_at"
     t.string "recipient_name"
@@ -58,7 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_202434) do
     t.string "vehicle_plate"
     t.datetime "started_at"
     t.datetime "ended_at"
-    t.string "status"
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["route_id"], name: "index_trips_on_route_id"

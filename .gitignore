@@ -1,0 +1,43 @@
+# Ignorar carpetas y archivos específicos de Rails
+
+# Archivos de log
+/log/*.log
+/tmp
+/public/assets
+
+# Datos de la base de datos
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/schema.rb
+/storage/*
+
+# Archivos de caché y compilación
+/node_modules
+/public/packs
+/public/cache
+/public/vite/
+/vendor/bundle/
+.byebug_history
+.spring_binstub
+.yarn-integrity
+
+# Archivos de entorno y credenciales
+/config/master.key
+/config/credentials.yml.enc
+.env*
+/config/database.yml
+/config/secrets.yml
+
+# Archivos del sistema
+.DS_Store
+.vscode
+Thumbs.db
+
+# Directorios de pruebas
+/coverage/
+
+# Varios
+*.rbc
+*.ru
+/lib/
+/bin/
