@@ -2,40 +2,35 @@ module Api
   module V1
     class DeliveriesController < ApplicationController
       # POST /api/v1/trips/:trip_id/stops/:id/complete  (guardar datos de entrega)
-      
-      def complete
-        trip = Trip.find(params[:trip_id])
-        stop = trip.stops.find(params[:id])
+      before_action :set_delivery, only: [:show, :update, :destroy, :mark_completed]
 
-        # params permitidos para completar
-        permitted = params.require(:stop).permit(:recipient_name, :recipient_document, :signature_url, :photo_url, :latitude, :longitude, :notes, :attempts)
-        stop.mark_completed!(permitted.to_h.symbolize_keys)
-
-        if stop.save
-          render json: stop, status: :ok
+      def create
+        delivery = Delivery.new(stop_params)
+        if delivery.save
+          render json: delivery, status: :created
         else
-          render json: { errors: stop.errors.full_messages }, status: :unprocessable_entity
+          render json: delivery.errors, status: :unprocessable_entity
         end
-      rescue ActiveRecord::RecordNotFound
-        render json: { error: 'Trip or Stop not found' }, status: :not_found
       end
 
-      # optionally: create a stop (POST /api/v1/trips/:trip_id/stops)
-      def create
-        trip = Trip.find(params[:trip_id])
-        stop = trip.stops.new(stop_params)
-        if stop.save
-          render json: stop, status: :created
+      def mark_completed
+        if @delivery.mark_completed!(mark_completed_params)
+          render json: @delivery
         else
-          render json: { errors: stop.errors.full_messages }, status: :unprocessable_entity
+          render json: @delivery.errors, status: :unprocessable_entity
         end
       end
 
       private
-
-      def stop_params
-        params.require(:stop).permit(:kind, :scheduled_at, :recipient_name, :recipient_document, :notes, :external_id)
-      end
+        def set_delivery
+          @delivery = Delivery.find(params[:id])
+        end
+        def delivery_params
+          params.require(:delivery).permit(:trip_id, :status, :scheduled_at, :completed_at, :attempts_number)
+        end
+        def mark_completed_params
+          params.permit(:photo_url, :latitude, :longitude, :recipient_name, :recipient_document, :notes)
+        end
     end
   end
 end

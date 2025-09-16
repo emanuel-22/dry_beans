@@ -28,3 +28,9 @@ rails db:create db:migrate
 
 Para realizar pruebas se uso https://rspec.info/
 
+Para ejecutar las pruebas debo ejecutar:
+
+```bash
+docker compose run app bash
+bundle exec rspec 
+```
