@@ -1,6 +1,3 @@
-# Ignorar carpetas y archivos específicos de Rails
-
-# Archivos de log
 /log/*.log
 /tmp
 /public/assets
@@ -12,11 +9,11 @@
 /storage/*
 
 # Archivos de caché y compilación
-/node_modules
-/public/packs
-/public/cache
-/public/vite/
-/vendor/bundle/
+node_modules
+public/packs
+public/cache
+
+vendor
 .byebug_history
 .spring_binstub
 .yarn-integrity
