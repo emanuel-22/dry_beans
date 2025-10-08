@@ -4,7 +4,6 @@ RSpec.describe Delivery, type: :model do
   let(:route) { Route.create!(name: "Ruta de Prueba", code: "R001") }
   let(:trip) { Trip.create!(route: route, driver_name: "Carlos Barboza", vehicle_plate: "AAA123", status: :active) }
 
-
   describe "validations" do
     it "Es valido todos los atributos requeridos" do
       delivery = Delivery.new(
